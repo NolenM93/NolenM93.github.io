@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NetSuite Order-to-Cash Toolkit | Nolen Millington</title>
+  <meta name="description" content="A SuiteScript 2.1 / SDF portfolio demo for a fictional wholesale distributor. Not deployed to a live NetSuite account." />
+  <meta name="theme-color" content="#0b1016" />
+  <link rel="icon" href="../assets/favicons/nm.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/site.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="../index.html">
+        <span class="mark">NM</span>
+        Nolen Millington
+      </a>
+      <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links">Menu</button>
+      <nav class="nav-links" id="nav-links">
+      <a href="../index.html#about">About</a>
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#skills">Skills</a>
+        <a href="../index.html#more">Repos</a>
+        <a href="https://supportsidetech.com" target="_blank" rel="noreferrer">Support Side Tech</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+
+    <article class="page-hero">
+      <div class="wrap prose">
+        <p class="kicker">Portfolio demo</p>
+        <h1>NetSuite Order-to-Cash Toolkit</h1>
+        <p class="lede">A NetSuite SuiteScript 2.1 and SDF project that implements common order-to-cash customizations for a fictional small wholesale distributor, Acme Wholesale Distributors.</p>
+        <div class="skills" style="margin-bottom:1.2rem"><span class="skill">SuiteScript 2.1</span><span class="skill">SDF</span><span class="skill">Jest</span><span class="skill">Not a live deployment</span></div>
+        <div class="actions"><a class="btn btn-primary" href="https://github.com/NolenM93/netsuite-order-to-cash" target="_blank" rel="noreferrer">GitHub repo</a><a class="btn btn-ghost" href="../index.html#work">Back to work</a></div>
+        
+        <p class="notice">Built and unit-tested against SuiteCloud mocks. Not deployed to a live NetSuite account. Acme Wholesale Distributors is a fictional business used for the scenario.</p>
+        <h2>What it covers</h2>
+        <p>User Event scripts for server-side validation, Client Scripts for form interactivity, a Scheduled Script for overdue invoice reminders, Map/Reduce for AR aging, a Suitelet collections dashboard, and a RESTlet for order status and lead creation.</p>
+        <p>Shared utility libraries keep the scripts testable. The repo documents governance checks, XSS escaping for Suitelet output, and configurable script parameters.</p>
+        
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap footer-row">
+      <span>Nolen Millington</span>
+      <p>&copy; 2026 · <a href="https://supportsidetech.com" target="_blank" rel="noreferrer">Support Side Tech</a></p>
+    </div>
+  </footer>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>
