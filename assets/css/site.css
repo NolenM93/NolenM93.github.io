@@ -52,18 +52,27 @@ a:hover {
 
 .skip {
   position: absolute;
-  left: 1rem;
-  top: -40px;
-  background: var(--accent);
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  background: transparent;
   color: var(--accent-ink);
-  padding: 0.5rem 0.9rem;
-  border-radius: 8px;
-  z-index: 100;
   font-weight: 700;
+  z-index: 200;
 }
 
-.skip:focus {
+.skip:focus,
+.skip:focus-visible {
+  left: 0.75rem;
   top: 0.6rem;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  background: var(--accent);
 }
 
 .wrap {
