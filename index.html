@@ -10,7 +10,7 @@
   <link rel="canonical" href="https://nolenm93.github.io/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/site.css" />
 </head>
 <body>
@@ -28,20 +28,149 @@
         <a href="#skills">Skills</a>
         <a href="#more">Repos</a>
         <a href="https://supportsidetech.com" target="_blank" rel="noreferrer">Support Side Tech</a>
+        <button class="caterpillar-toggle" id="caterpillar-toggle" type="button" aria-pressed="false">
+          <span class="caterpillar-toggle-dot" aria-hidden="true"></span>
+          Caterpillar mode
+        </button>
       </nav>
     </div>
   </header>
 
   <main id="main">
     <section class="hero" id="top">
-      <div class="wrap">
-        <p class="kicker">Developer portfolio</p>
-        <h1>Software you can open and use.</h1>
-        <p class="lede">I am Nolen Millington. I build websites, booking tools, mobile apps, and other software for real workflows. This site collects project write-ups, live demos, and public GitHub repos.</p>
-        <div class="actions">
-          <a class="btn btn-primary" href="#work">See the work</a>
-          <a class="btn btn-ghost" href="https://github.com/NolenM93" target="_blank" rel="noreferrer">GitHub</a>
-          <a class="btn btn-ghost" href="https://supportsidetech.com" target="_blank" rel="noreferrer">Support Side Tech</a>
+      <div class="wrap hero-layout">
+        <div class="hero-copy">
+          <p class="kicker">Developer portfolio</p>
+          <h1>Software you can open and use.</h1>
+          <p class="lede">I am Nolen Millington. I build websites, booking tools, mobile apps, and other software for real workflows. This site collects project write-ups, live demos, and public GitHub repos.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#work">See the work</a>
+            <a class="btn btn-ghost" href="https://github.com/NolenM93" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="btn btn-ghost" href="https://supportsidetech.com" target="_blank" rel="noreferrer">Support Side Tech</a>
+          </div>
+        </div>
+        <div class="hero-scene" id="hero-scene">
+          <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
+          <svg class="hero-static" viewBox="0 0 800 480" role="img" aria-label="Still frame of a retro arcade space battle">
+            <g fill="#9ab0c8" opacity="0.55">
+              <circle cx="80" cy="40" r="1.2" />
+              <circle cx="210" cy="88" r="1" />
+              <circle cx="340" cy="36" r="1.4" />
+              <circle cx="520" cy="70" r="1" />
+              <circle cx="610" cy="88" r="1" />
+              <circle cx="700" cy="36" r="1.4" />
+              <circle cx="760" cy="140" r="1" />
+              <circle cx="120" cy="160" r="1" />
+              <circle cx="480" cy="160" r="1" />
+              <circle cx="670" cy="210" r="1.2" />
+              <circle cx="790" cy="260" r="1" />
+              <circle cx="90" cy="300" r="1.1" />
+              <circle cx="540" cy="300" r="1.1" />
+              <circle cx="730" cy="340" r="1" />
+              <circle cx="180" cy="400" r="1.3" />
+              <circle cx="500" cy="400" r="1.3" />
+              <circle cx="640" cy="430" r="1" />
+            </g>
+            <g fill="#ff9b6a">
+              <polygon points="257,116 248,128 257,124 266,128" />
+              <polygon points="337,108 328,120 337,116 346,120" />
+              <polygon points="417,116 408,128 417,124 426,128" />
+              <polygon points="497,108 488,120 497,116 506,120" />
+            </g>
+            <g fill="#22d3ee">
+              <polygon points="239,160 228,176 239,170 250,176" />
+              <polygon points="339,152 328,168 339,162 350,168" />
+              <polygon points="439,160 428,176 439,170 450,176" />
+              <polygon points="539,152 528,168 539,162 550,168" />
+            </g>
+            <rect x="418" y="200" width="2" height="16" fill="#ff9b6a" />
+            <rect x="508" y="248" width="2" height="18" fill="#a5f3fc" />
+            <rect x="338" y="300" width="2" height="18" fill="#a5f3fc" />
+            <polygon points="400,388 388,416 400,408 412,416" fill="#22d3ee" />
+          </svg>
+          <div class="hero-scene-hud" aria-hidden="true">
+            <span>Dunedin, FL</span>
+            <span data-hud-status>Select a ship</span>
+          </div>
+          <div class="scene-nodes" id="scene-nodes">
+            <button type="button" class="scene-node-btn" data-node="sites">
+              <span class="scene-node-label">Sites</span>
+            </button>
+            <button type="button" class="scene-node-btn" data-node="apps">
+              <span class="scene-node-label">Apps</span>
+            </button>
+            <button type="button" class="scene-node-btn" data-node="games">
+              <span class="scene-node-label">Games</span>
+            </button>
+            <button type="button" class="scene-node-btn" data-node="code">
+              <span class="scene-node-label">Code</span>
+            </button>
+          </div>
+          <div class="node-card" id="node-card" hidden>
+            <p class="node-card-kicker" id="node-card-kicker"></p>
+            <p class="node-card-copy" id="node-card-copy"></p>
+            <div class="node-card-row">
+              <a class="node-card-link" id="node-card-link" href="#work">See the work</a>
+              <button type="button" class="node-card-close" id="node-card-close">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wrap play-arrow-wrap">
+        <button class="play-arrow" id="play-game-btn" type="button" aria-label="Play the space game" aria-expanded="false" aria-controls="space-game">
+          <span class="play-arrow-glyph" aria-hidden="true"></span>
+          <span class="play-arrow-text">Play the space game</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="space-game" id="space-game" aria-hidden="true">
+      <div class="space-game-clip" id="space-game-clip">
+        <div class="wrap">
+          <div class="space-game-frame">
+            <div class="space-game-hud">
+              <span>Score <b data-game-score>0</b></span>
+              <span>High <b data-game-high>0</b></span>
+              <span>Lives <b data-game-lives>3</b></span>
+              <span>Level <b data-game-level>-</b></span>
+              <div class="space-game-hud-actions">
+                <button class="btn btn-ghost" id="game-restart" type="button">Restart</button>
+                <button class="btn btn-primary" id="game-close" type="button">Close</button>
+              </div>
+            </div>
+            <div class="space-game-stage">
+              <canvas id="game-canvas" tabindex="0" aria-label="Space battle game"></canvas>
+              <div class="space-game-overlay" id="game-overlay" hidden>
+                <div class="space-game-intro" id="game-intro">
+                  <div class="space-game-panel">
+                    <p class="space-game-title" id="game-title-card">Space Battle</p>
+                    <div id="game-choose" hidden>
+                      <p class="space-game-sub">Choose difficulty</p>
+                      <div class="space-game-diffs">
+                        <button class="btn btn-ghost" type="button" data-diff="easy">Easy</button>
+                        <button class="btn btn-primary" type="button" data-diff="medium">Medium</button>
+                        <button class="btn btn-ghost" type="button" data-diff="hard">Hard</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="space-game-over" id="game-over" hidden>
+                  <div class="space-game-panel">
+                    <p class="space-game-title">Ship down</p>
+                    <p class="space-game-note">Score <strong id="game-over-score">0</strong>. High <strong id="game-over-high">0</strong></p>
+                    <div class="space-game-diffs">
+                      <button class="btn btn-primary" type="button" id="game-over-restart">Restart</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="space-game-touch" id="game-touch">
+              <button type="button" data-touch="left" aria-label="Move left">Left</button>
+              <button type="button" data-touch="fire" aria-label="Fire">Fire</button>
+              <button type="button" data-touch="right" aria-label="Move right">Right</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -400,6 +529,11 @@
       <p>&copy; 2026 · <a href="https://supportsidetech.com" target="_blank" rel="noreferrer">Support Side Tech</a> · <a href="https://github.com/NolenM93/NolenM93.github.io">Source</a></p>
     </div>
   </footer>
+  <canvas class="caterpillar-layer" id="caterpillar-canvas" hidden aria-hidden="true"></canvas>
   <script src="assets/js/site.js"></script>
+  <script src="assets/js/pixel-ships.js"></script>
+  <script src="assets/js/hero-scene.js"></script>
+  <script src="assets/js/space-game.js"></script>
+  <script src="assets/js/caterpillar.js"></script>
 </body>
 </html>
