@@ -1137,3 +1137,95 @@ section[id],
     transition: none;
   }
 }
+
+/* Freelance pricing section */
+.pricing-highlight {
+  max-width: 46rem;
+  margin: 0 0 1.25rem;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  background: rgba(62, 207, 190, 0.1);
+  border: 1px solid rgba(62, 207, 190, 0.35);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.98rem;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.6rem;
+}
+
+.pricing-card .price {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.35rem;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+
+.pricing-card .price span {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 550;
+}
+
+.pricing-card ul {
+  margin: 0.15rem 0 0;
+  padding-left: 1.15rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.pricing-card li {
+  margin: 0.28rem 0;
+}
+
+.pricing-note {
+  color: var(--faint);
+  font-size: 0.82rem;
+}
+
+.pricing-after {
+  margin-top: 2.4rem;
+}
+
+.pricing-after .muted {
+  max-width: 46rem;
+}
+
+.pricing-after .feature-grid {
+  margin-top: 1.2rem;
+}
+
+.pricing-after .feature ul {
+  margin: 0.35rem 0 0;
+  padding-left: 1.15rem;
+  color: var(--muted);
+}
+
+.pricing-after .feature li {
+  margin: 0.28rem 0;
+}
+
+.pricing-faq {
+  margin-top: 2.2rem;
+  max-width: 46rem;
+}
+
+.pricing-faq h3 {
+  margin-top: 1.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.pricing-faq p {
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+}
