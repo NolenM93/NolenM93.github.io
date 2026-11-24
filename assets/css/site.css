@@ -1172,6 +1172,12 @@ section[id],
   font-weight: 550;
 }
 
+.pricing-card .price .price-or {
+  display: block;
+  margin-top: 0.15rem;
+  letter-spacing: 0;
+}
+
 .pricing-card ul {
   margin: 0.15rem 0 0;
   padding-left: 1.15rem;
@@ -1190,6 +1196,7 @@ section[id],
 
 .pricing-after {
   margin-top: 2.4rem;
+  scroll-margin-top: calc(var(--nav-h) + 0.6rem);
 }
 
 .pricing-after .muted {
@@ -1213,6 +1220,7 @@ section[id],
 .pricing-faq {
   margin-top: 2.2rem;
   max-width: 46rem;
+  scroll-margin-top: calc(var(--nav-h) + 0.6rem);
 }
 
 .pricing-faq h3 {
