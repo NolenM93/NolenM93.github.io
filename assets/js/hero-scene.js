@@ -32,7 +32,7 @@
     {
       id: "games",
       label: "Games",
-      copy: "Playable browser games, including Lantern Hollow.",
+      copy: "Browser games, including Zombies Need Naps.",
       href: "projects/lantern-hollow.html",
       linkLabel: "See games"
     },
