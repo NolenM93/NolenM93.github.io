@@ -10,8 +10,6 @@
   var SEGMENTS = 11;
   var SPACING = 22;
   var ATTRACT = 120;
-  var RELEASE = 150;
-  var LATCH_HIT = 16;
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   var coarsePointer = window.matchMedia("(pointer: coarse)");
@@ -26,8 +24,6 @@
   var last = 0;
   var mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2, inside: false };
   var segs = [];
-  var latched = null;
-  var latchPoint = { x: 0, y: 0 };
   var clickables = [];
   var scanClock = 0;
   var sprHead = null;
@@ -242,82 +238,26 @@
     var targetY = mouse.y;
     var stretch = 0;
 
-    if (latched) {
-      var lr = latched.getBoundingClientRect();
-      var md = distToRect(mouse.x, mouse.y, lr);
-      if (md > RELEASE || lr.width < 4) {
-        head.vx += (mouse.x - head.x) * 0.18;
-        head.vy += (mouse.y - head.y) * 0.18;
-        latched = null;
-      } else {
-        latchPoint = closestEdgePoint(head.x, head.y, lr);
-        targetX = latchPoint.x;
-        targetY = latchPoint.y;
-        stretch = 1;
-      }
-    } else if (near) {
+    if (near) {
       var edge = closestEdgePoint(mouse.x, mouse.y, near.rect);
       var lean = 1 - near.dist / ATTRACT;
       targetX = mouse.x + (edge.x - mouse.x) * (0.35 + lean * 0.5);
       targetY = mouse.y + (edge.y - mouse.y) * (0.35 + lean * 0.5);
       stretch = lean;
-      if (near.dist <= LATCH_HIT || distToRect(head.x, head.y, near.rect) <= LATCH_HIT) {
-        latched = near.el;
-        latchPoint = closestEdgePoint(head.x, head.y, near.rect);
-      }
     }
 
-    var stiff = latched ? 0.46 : 0.26;
-    spring(head, targetX, targetY, stiff, latched ? 0.58 : 0.72);
-
-    var trailX = 0;
-    var trailY = 1;
-    if (latched && latched.getBoundingClientRect) {
-      var lr2 = latched.getBoundingClientRect();
-      var cx = lr2.left + lr2.width / 2;
-      var cy = lr2.top + lr2.height / 2;
-      trailX = head.x - cx;
-      trailY = head.y - cy;
-      var mouseDx = mouse.x - head.x;
-      var mouseDy = mouse.y - head.y;
-      var mouseDist = Math.sqrt(mouseDx * mouseDx + mouseDy * mouseDy);
-      if (mouseDist > 36) {
-        trailX = mouseDx;
-        trailY = mouseDy;
-      }
-    } else {
-      trailX = mouse.x - head.x;
-      trailY = mouse.y - head.y;
-    }
-    var trailLen = Math.sqrt(trailX * trailX + trailY * trailY) || 1;
-    trailX /= trailLen;
-    trailY /= trailLen;
+    spring(head, targetX, targetY, 0.26, 0.72);
 
     var i;
     for (i = 1; i < segs.length; i += 1) {
       var prev = segs[i - 1];
       var seg = segs[i];
       var space = SPACING + stretch * 8 * (i < 3 ? 1 : 0.4);
-      var followX;
-      var followY;
-      if (latched) {
-        var stepDist = space;
-        var stretchDist = Math.sqrt((mouse.x - head.x) * (mouse.x - head.x) + (mouse.y - head.y) * (mouse.y - head.y));
-        if (stretchDist > 40) {
-          stepDist = Math.max(space * 0.75, Math.min(space * 1.35, stretchDist / (segs.length - 1)));
-        }
-        followX = head.x + trailX * stepDist * i;
-        followY = head.y + trailY * stepDist * i;
-        spring(seg, followX, followY, 0.28, 0.66);
-      } else {
-        var dx = prev.x - seg.x;
-        var dy = prev.y - seg.y;
-        var dist = Math.sqrt(dx * dx + dy * dy) || 1;
-        followX = prev.x - (dx / dist) * space;
-        followY = prev.y - (dy / dist) * space;
-        spring(seg, followX, followY, 0.3, 0.68);
-        constrain(prev, seg, space + 6);
-      }
+      var dx = prev.x - seg.x;
+      var dy = prev.y - seg.y;
+      var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      spring(seg, prev.x - (dx / dist) * space, prev.y - (dy / dist) * space, 0.3, 0.68);
+      constrain(prev, seg, space + 6);
     }
 
     var idle = 1 / (1 + Math.hypot(head.vx, head.vy) * 0.12);
@@ -330,7 +270,7 @@
       var plen = Math.sqrt(px * px + py * py) || 1;
       var wx = -py / plen;
       var wy = px / plen;
-      var amp = (latched ? 0.6 : 2.1) * idle;
+      var amp = 2.1 * idle;
       s.x += wx * Math.sin(now * 7 + i * 0.85) * amp * dt * 60 * 0.04;
       s.y += wy * Math.sin(now * 7 + i * 0.85) * amp * dt * 60 * 0.04;
     }
@@ -359,14 +299,10 @@
     var head = segs[0];
     var neck = segs[1] || head;
     var hang = Math.atan2(head.y - neck.y, head.x - neck.x);
-    if (latched) {
-      hang = Math.atan2(latchPoint.y - neck.y, latchPoint.x - neck.x);
-    } else {
-      var look = nearestClickable(head.x, head.y);
-      if (look && look.dist < ATTRACT) {
-        var edge = closestEdgePoint(head.x, head.y, look.rect);
-        hang = Math.atan2(edge.y - neck.y, edge.x - neck.x);
-      }
+    var look = nearestClickable(head.x, head.y);
+    if (look && look.dist < ATTRACT) {
+      var lookEdge = closestEdgePoint(head.x, head.y, look.rect);
+      hang = Math.atan2(lookEdge.y - neck.y, lookEdge.x - neck.x);
     }
     drawSpr(sprHead, head.x, head.y, 4.4, hang + Math.PI / 2);
     ctx.fillStyle = "rgba(165, 243, 252, 0.9)";
@@ -402,7 +338,6 @@
       last = 0;
       if (!raf) raf = requestAnimationFrame(tick);
     } else {
-      latched = null;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
   }
