@@ -32,9 +32,9 @@
     {
       id: "games",
       label: "Games",
-      copy: "Browser games, including Zombies Need Naps.",
-      href: "projects/lantern-hollow.html",
-      linkLabel: "See games"
+      copy: "A space battle you can play on this page, plus other game work in the repos.",
+      href: "#space-game",
+      linkLabel: "Play the space game"
     },
     {
       id: "code",
